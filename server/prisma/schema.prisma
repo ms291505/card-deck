@@ -1,0 +1,50 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+//ENUMS
+
+// MODELS
+
+model Game {
+  id Int @id @default(autoincrement())
+  name String
+  decks DecksInGames[]
+  created DateTime @default(now())
+}
+
+model Deck {
+  id Int @id @default(autoincrement())
+  name String
+  games DecksInGames[]
+  cards Card[]
+  created DateTime @default(now())
+}
+
+model DecksInGames {
+  game Game @relation(fields: [gameId], references: [id])
+  gameId Int
+  deck Deck @relation(fields: [deckId], references: [id])
+  deckId Int
+  created DateTime @default(now())
+
+  @@id([gameId, deckId])
+}
+
+model Card {
+  id Int @id @default(autoincrement())
+  deck Deck @relation(fields: [deckId], references: [id])
+  deckId Int
+  suit String?
+  content String?
+  value Int?
+  notes String?
+  created DateTime @default(now())
+}
