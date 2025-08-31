@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { socket } from './lib/socket';
-import type { Card, Hand } from './lib/types';
+import type {  Ack, Card, Hand } from './lib/types';
 
 function App() {
 
@@ -9,12 +9,13 @@ function App() {
   const [hand, setHand] = useState<Hand>({cards: []});
 
   useEffect(() => {
-    const onCard = (c: Card) => {
+    const onCard = (c: Card, ack: (response: Ack) => void) => {
       if (!c) return;
       setCard(c);
       setHand(prev => ({
         cards: [...prev.cards, c]
       }));
+      ack({ ok: true });
     }
 
     socket.on("connect", () => {
@@ -29,7 +30,7 @@ function App() {
   }, [])
 
   const draw = () => {
-    socket.emit("draw-card");
+    socket.emit("drawCard");
     console.log("pushed");
   }
 

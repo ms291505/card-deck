@@ -1,3 +1,5 @@
+import { Card } from "@prisma/client";
+
 export interface Ack {ok: boolean};
 
 export interface ServerToClientEvents {
@@ -8,14 +10,14 @@ export interface ServerToClientEvents {
 export interface ClientToServerEvents {
   hello: () => void;
   drawCard: () => void;
+  createLobby: (lobby: string) => void;
 }
 
-export interface Card {
-  suit?: string,
-  content?: string
+export interface InterServerEvents {
+  ping: () => void;
 }
 
-export interface Hand {
-  cards: Card[],
-  userId?: number | string
+export interface SocketData {
+  name: string;
+  age: number;
 }

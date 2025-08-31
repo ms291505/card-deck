@@ -1,4 +1,4 @@
-import { Card } from "../generated/prisma/index.js";
+import { Card } from "@prisma/client";
 
 export function createBlankCard(): Card {
   const card: Card = {

@@ -3,5 +3,8 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "paths": { "@shared_types/*": ["../server/src/lib/shared_types/*"] }
+  }
 }
