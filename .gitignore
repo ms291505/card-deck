@@ -1,6 +1,7 @@
 # My junk
 .DS_Store
 *.db
+run_dev.sh
 
 # Logs
 logs
